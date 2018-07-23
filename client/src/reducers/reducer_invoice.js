@@ -60,11 +60,12 @@ export default function(state = INTIAL_STATE, action){
         case 1:
         return {
             id: 1114,
+            tax: 12.36,
+            discount: 10,
+            total_price: 609,
+            sub_total: 600,
             items:{
                 count: 3,
-                total_price: 609,
-                tax: 12.36,
-                discount: 10,
                 items: [{
                     name: 'item 1',
                     quantity:2,

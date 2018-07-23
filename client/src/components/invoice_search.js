@@ -15,7 +15,7 @@ export class SearchBox extends Component {
   }
   render() {
     return (
-      <div style={{textAlign:'center', padding:'10px'}}>
+      <div style={{textAlign:'center', padding:'10px', marginTop:64}}>
           <Input
           style={{borderRadius: '25px', background:'#111', padding:'7px', width:'90%'}}
           id="input-with-icon-adornment"

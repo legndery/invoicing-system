@@ -53,7 +53,7 @@ const styles = theme => ({
 
 export class InvoiceDetails extends Component {
     render() {
-        const {classes, theme} = this.props;
+        const {classes, theme, selectedInvoice} = this.props;
         return ( 
             <main className={classes.content}>
                 <div className={classes.toolbar} />
@@ -63,13 +63,13 @@ export class InvoiceDetails extends Component {
                 <Grid container spacing={24}>
                     <Grid item xs={5} style={{paddingBottom: 25, color: theme.palette.common.black}}>
                         <Typography variant="title" color="inherit">{'Invoice'.toUpperCase()}</Typography>
-                        <Typography variant="body1" color="inherit">{`# INV${this.props.selectedInvoice.id}`}</Typography>
-                        <Typography variant="body2" color="inherit">{`${this.props.selectedInvoice.created_time}`}</Typography>
+                        <Typography variant="body1" color="inherit">{`# INV${selectedInvoice.id}`}</Typography>
+                        <Typography variant="body2" color="inherit">{`${selectedInvoice.created_time}`}</Typography>
                     </Grid>
                     <Grid item xs={5} className={classes['right-align']} style={{paddingBottom: 25, color: theme.palette.common.black}}>
                         <Typography variant="body1" color="inherit">{'customer details'.toUpperCase()}</Typography>
-                        <Typography variant="title" color="inherit">{this.props.selectedInvoice.user.name}</Typography>
-                        <Typography variant="body2" color="inherit">{this.props.selectedInvoice.user.email}</Typography>
+                        <Typography variant="title" color="inherit">{selectedInvoice.user.name}</Typography>
+                        <Typography variant="body2" color="inherit">{selectedInvoice.user.email}</Typography>
                     </Grid>
                     <Grid item xs={2} className={classes['right-align']}>
                         <Button variant="outlined" size="large" color="primary" className={classes.button}>
@@ -99,17 +99,30 @@ export class InvoiceDetails extends Component {
                                 )
                             )
                         }
-                        <TableRow>
-                            <TableCell />
-                            <TableCell>
-                                Sub Total
-                            </TableCell>
-                            <TableCell>
-
-                            </TableCell>
-                        </TableRow>
                     </TableBody>
                 </Table>
+                <Grid container spacing={32}>
+                    <Grid item xs={8}/>
+                    <Grid item  xs={4} style={{paddingBottom: 25, color: theme.palette.grey['700']}}>
+                        <p style={{paddingRight:20}}>Sub Total
+                            <span style={{float:'right'}}>{selectedInvoice.sub_total}</span>
+                        </p>
+                        <p style={{paddingRight:20}}>Tax ({this.props.selectedInvoice.tax}%)
+                            <span style={{float:'right'}}>{selectedInvoice.tax_amt = selectedInvoice.sub_total*Number(selectedInvoice.tax)/100}</span>
+                        </p>
+                        <p style={{paddingRight:20}}>Discount ({selectedInvoice.discount}%)
+                            <span style={{float:'right'}}>{
+                               selectedInvoice.discount_amt =  (selectedInvoice.sub_total+selectedInvoice.tax_amt)*selectedInvoice.discount/100
+                            }</span>
+                        </p>
+                        <br/>
+                        <Typography variant="title" color="inherit" style={{paddingRight:20}}>Grand Total
+                            <span style={{float:'right'}}>{
+                               -selectedInvoice.discount_amt+selectedInvoice.sub_total+selectedInvoice.tax_amt
+                            }</span>
+                        </Typography> 
+                    </Grid>
+                </Grid>
                 </Paper>
             </main>
         )

@@ -24,7 +24,7 @@ export class TheHeader extends Component {
     console.log(classes);
     return (
       <div>
-        <AppBar position="static" color="primary">
+        <AppBar position="absolute" color="primary">
             <Toolbar>
             <Typography variant="title" color="inherit">
                 Dashboard

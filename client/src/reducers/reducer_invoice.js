@@ -10,7 +10,7 @@ export default function(state = INTIAL_STATE, action){
         }
         
         case FETCH_INVOICE:
-        const payload = action.payload;
+        const payload = action.payload.data;
         const invArrMap = payload.reduce((p,c,i)=> {
             p[c.id] = i
             return p;

@@ -1,4 +1,6 @@
 import { FETCH_INVOICE } from './constants'
+import axios from 'axios'
+import config from './../config/config'
 export default function(invoiceList){
     const payload = [
         {
@@ -106,6 +108,6 @@ export default function(invoiceList){
     ]
     return {
         type: FETCH_INVOICE,
-        payload
+        payload: axios(config.BASE_URL)
     }
 }

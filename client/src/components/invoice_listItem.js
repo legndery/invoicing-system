@@ -46,18 +46,18 @@ const style = theme=>({
 export class ListItem extends Component {
   render() {
     const { data, classes, selected, theme } = this.props;
-    console.log(theme);
+    console.log(this.props.onClick);
     return (
-      <MListItem button className={`${classes["invoice-list-item"]} ${selected?'active':''}`}>
+      <MListItem button className={`${classes["invoice-list-item"]} ${selected?'active':''}`} onClick={()=>this.props.onClick(this.props.data.id)}>
         <div className={`${classes["item-container"]}`}>
            <div className='clearfix'>
             <div className={classes['text-left']}>INV. # - {data.id}</div>
-            <div className={classes['text-right']}>{data.created_time}</div>
+            <div className={classes['text-right']}>{data.createdAt}</div>
           </div>
-          <div className={classes['text-items']}>Items - {data.items.count}</div>
+          <div className={classes['text-items']}>Items - {data.Items.length}</div>
           <div className="clearfix">
-            <div className={`${classes['user-name']} ${data.user.name?'':'unknown'} ${classes['text-left']}`}>{data.user.name?data.user.name:'Unknown User'}</div>
-            <div className={classes['total-price']}>{data.items.total_price}</div>
+            <div className={`${classes['user-name']} ${data.User.name?'':'unknown'} ${classes['text-left']}`}>{data.User.name?data.User.name:'Unknown User'}</div>
+            <div className={classes['total-price']}>{data.totalPrice}</div>
           </div>
         </div>
       </MListItem>

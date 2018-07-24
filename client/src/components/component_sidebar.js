@@ -37,7 +37,7 @@ export class SideBar extends Component {
 }
 function mapStateToProps(state){
     return {
-        invoiceNumber: state.invoiceList.length
+        invoiceNumber: state.invoice.invoiceList.length
     }
 }
 export default connect(mapStateToProps)(withStyles(styles)(SideBar))

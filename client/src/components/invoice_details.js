@@ -54,6 +54,9 @@ const styles = theme => ({
 export class InvoiceDetails extends Component {
     render() {
         const {classes, theme, selectedInvoice} = this.props;
+        if(!selectedInvoice){
+            return <main className={classes.content} />
+        }
         return ( 
             <main className={classes.content}>
                 <div className={classes.toolbar} />
@@ -64,12 +67,12 @@ export class InvoiceDetails extends Component {
                     <Grid item xs={5} style={{paddingBottom: 25, color: theme.palette.common.black}}>
                         <Typography variant="title" color="inherit">{'Invoice'.toUpperCase()}</Typography>
                         <Typography variant="body1" color="inherit">{`# INV${selectedInvoice.id}`}</Typography>
-                        <Typography variant="body2" color="inherit">{`${selectedInvoice.created_time}`}</Typography>
+                        <Typography variant="body2" color="inherit">{`${selectedInvoice.createdAt}`}</Typography>
                     </Grid>
                     <Grid item xs={5} className={classes['right-align']} style={{paddingBottom: 25, color: theme.palette.common.black}}>
                         <Typography variant="body1" color="inherit">{'customer details'.toUpperCase()}</Typography>
-                        <Typography variant="title" color="inherit">{selectedInvoice.user.name}</Typography>
-                        <Typography variant="body2" color="inherit">{selectedInvoice.user.email}</Typography>
+                        <Typography variant="title" color="inherit">{selectedInvoice.User.name}</Typography>
+                        <Typography variant="body2" color="inherit">{selectedInvoice.User.email}</Typography>
                     </Grid>
                     <Grid item xs={2} className={classes['right-align']}>
                         <Button variant="outlined" size="large" color="primary" className={classes.button}>
@@ -89,7 +92,7 @@ export class InvoiceDetails extends Component {
                     </TableHead>
                     <TableBody>
                         {
-                            this.props.selectedInvoice.items.items.map((item,i)=>
+                            this.props.selectedInvoice.Items.map((item,i)=>
                                 (
                                     <TableRow key={'item-'+i}>
                                         <TableCell>{item.name}</TableCell>
@@ -105,20 +108,20 @@ export class InvoiceDetails extends Component {
                     <Grid item xs={8}/>
                     <Grid item  xs={4} style={{paddingBottom: 25, color: theme.palette.grey['700']}}>
                         <p style={{paddingRight:20}}>Sub Total
-                            <span style={{float:'right'}}>{selectedInvoice.sub_total}</span>
+                            <span style={{float:'right'}}>{selectedInvoice.subTotal}</span>
                         </p>
                         <p style={{paddingRight:20}}>Tax ({this.props.selectedInvoice.tax}%)
-                            <span style={{float:'right'}}>{selectedInvoice.tax_amt = selectedInvoice.sub_total*Number(selectedInvoice.tax)/100}</span>
+                            <span style={{float:'right'}}>{(selectedInvoice.tax_amt = selectedInvoice.subTotal*Number(selectedInvoice.tax)/100).toFixed(2)}</span>
                         </p>
                         <p style={{paddingRight:20}}>Discount ({selectedInvoice.discount}%)
                             <span style={{float:'right'}}>{
-                               selectedInvoice.discount_amt =  (selectedInvoice.sub_total+selectedInvoice.tax_amt)*selectedInvoice.discount/100
+                               (selectedInvoice.discount_amt =  (selectedInvoice.subTotal+selectedInvoice.tax_amt)*selectedInvoice.discount/100).toFixed(2)
                             }</span>
                         </p>
                         <br/>
                         <Typography variant="title" color="inherit" style={{paddingRight:20}}>Grand Total
                             <span style={{float:'right'}}>{
-                               -selectedInvoice.discount_amt+selectedInvoice.sub_total+selectedInvoice.tax_amt
+                               selectedInvoice.totalPrice.toFixed(2)
                             }</span>
                         </Typography> 
                     </Grid>
@@ -130,7 +133,8 @@ export class InvoiceDetails extends Component {
 }
 function mapStateToProps(state){
     return {
-        selectedInvoice: state.selectedInvoice
+        selectedInvoice: state.invoice.invoiceList[state.invoice.invoiceArrIDMap[state.invoice.invoiceID]]
+
     }
 }
 export default connect(mapStateToProps)(withStyles(styles,{withTheme: true})(InvoiceDetails))

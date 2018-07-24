@@ -1,0 +1,18 @@
+
+.App {
+  flex-grow: 1;
+  z-index: 1;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+body {
+  background-color: #ccc;
+}
+.clearfix:after {
+  content: " "; /* Older browser do not support empty content */
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}

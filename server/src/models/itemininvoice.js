@@ -1,8 +1,8 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var ItemInInvoice = sequelize.define('ItemInInvoice', {
-    invoice_id: DataTypes.INTEGER,
-    item_id: DataTypes.INTEGER,
+    InvoiceId: DataTypes.INTEGER,
+    ItemId: DataTypes.INTEGER,
     quantity: DataTypes.INTEGER
   }, {
     timestamps: false

@@ -54,3 +54,32 @@ a simple browser based Invoicing Tool
     cd server
     npm start
     ```
+
+# API Endpoints
+Default port for the server is 8080
+
+| Endpoint | Reqest Payload | description|
+|----|---|--|
+|  `GET /` |  `nothing` | Gets list of all the invoices|
+| `GET /:id` | `Number in place of :id` | Gets the invoice with ID=id |
+| `POST /create`| `Content-Type: application/json`| Creates an invoice | 
+|               |```json                                    | |
+|               |    {          |   |
+|                |        "userData":{   |  |
+|                |            "name":"test1",    |  |
+|                |            "email":"test1@isp.org"    | |
+|                |        },     |  |
+|                |        "arrItemsData":[   | |
+|                |            { |   |
+|                |                "name":"Chicken", "price":100, "quantity": 2  | |
+|                |            },    |   |
+|                |            { |   |
+|                |                "name":"Mutton", "price":120, "quantity": 1   |   |
+|                |            } |   |
+|                |        ],    |   |
+|                |        "tax":18, |   |
+|                |        "discount":10|    |
+|                |    }|    |
+|                |    ``` | |
+| end | -- | -- |
+                    
